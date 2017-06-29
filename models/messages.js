@@ -1,12 +1,18 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Messages = sequelize.define('Messages', {
-    body: DataTypes.STRING(140)
+    body: DataTypes.STRING
   }, {});
 
-  //Messages associate with Users many-to-one
   Messages.associate = (models) => {
-    Messages.belongsTo(models.Users, {as: "user", foreignKey: "userId"});
+    Messages.belongsTo(
+      models.Users,
+      {as: "user", foreignKey: "userId"}
+    );
+    Messages.hasMany(
+      models.Likes,
+      {as: "likes", foreignKey: "messageId"}
+    );
   }
 
   return Messages;

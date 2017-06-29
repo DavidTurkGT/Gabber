@@ -6,10 +6,17 @@ module.exports = function(sequelize, DataTypes) {
     displayname: DataTypes.STRING
   }, {});
 
-  //Users associate with messages one-to-many
   Users.associate = (models) => {
-    Users.hasMany(models.Messages, {as: "messages", foreignKey: "userId"});
+    Users.hasMany(
+      models.Messages,
+      {as: "messages", foreignKey: "userId"}
+    );
+    Users.hasMany(
+      models.Likes,
+      {as: "likes", foreignKey: "userId"}
+    );
   }
+
 
   return Users;
 };
