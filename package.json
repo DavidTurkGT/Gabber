@@ -1,0 +1,24 @@
+{
+  "name": "gabber",
+  "version": "1.0.0",
+  "description": "Social media app",
+  "main": "gabber.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidTurkGT/Gabber.git"
+  },
+  "author": "David Turk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidTurkGT/Gabber/issues"
+  },
+  "homepage": "https://github.com/DavidTurkGT/Gabber#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "pg": "^6.4.0",
+    "sequelizer": "^1.1.3"
+  }
+}
