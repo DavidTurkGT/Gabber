@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const models = require("../models");
+
 
 router.get("/", (req, res) => {
   res.render("gobl");
@@ -14,8 +16,25 @@ router.get("/signup", (req, res) => res.send("Sign Up page"));
 router.get("/:userId/:username", (req, res) => res.send("Main page"));
 
 router.post("/login", (req, res) => {
-  console.log("logging in ", req.body.username);
-  res.redirect("/home/username/userId");
+  models.Users.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then ( (user) => {
+    if(!user) {
+      let error = ["Invalid Username/Password"];
+      res.render("gobl", {errors: error});
+    }
+    else{
+      if (user.password === req.body.password){
+        res.redirect("/home/"+user.id+"/"+user.username);
+      }
+      else{
+        let error = ["Invalid Username/Password"];
+        res.render("gobl", {errors: error});
+      }
+    }
+  })
 });
 
 router.post("/signup", (req, res) => {

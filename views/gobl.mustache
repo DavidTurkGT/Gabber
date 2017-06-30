@@ -9,6 +9,20 @@
       <div class="heading">
         <h1>Gob'l</h1>
       </div>
+      <div class="errors">
+        <ul>
+          {{#errors}}
+          <li>{{.}}</li>
+          {{/errors}}
+        </ul>
+      </div>
+      <div class="messages">
+        <ul>
+          {{#messages}}
+          <li>{{.}}</li>
+          {{/messages}}
+        </ul>
+      </div>
       <div class="body">
         <div class="login">
           <form action="/home/login" method="post">
