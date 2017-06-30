@@ -86,7 +86,6 @@ router.post("/signup", (req, res) => {
 });
 
 router.post("/:userId/:username/logout", isLoggedIn, (req, res) => {
-  console.log("Logging out user: ", req.params.username);
   req.session.destroy();
   res.redirect("/");
 });

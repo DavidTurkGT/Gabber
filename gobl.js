@@ -4,6 +4,7 @@ const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
 const validator = require('express-validator');
 const session = require('express-session');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.set('view engine', 'mustache');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(validator());
+
+app.use(morgan('dev'));
 
 app.use(session({
   secret: 'cornbread',

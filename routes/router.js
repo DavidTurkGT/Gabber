@@ -10,7 +10,6 @@ router.use("/users", userRouter);
 router.use("/posts", postRouter);
 
 router.get("/", (req,res) => {
-  console.log("Session: ",req.session);
   if(req.session.username && req.session.userId){
     res.redirect("/home/"+req.session.userId+"/"+req.session.username);
   }
