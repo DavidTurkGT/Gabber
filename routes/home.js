@@ -38,8 +38,37 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-  console.log("signing up: ", req.body.username);
-  res.redirect("/home/username/userId");
+  req.checkBody("username", "Please enter a username").notEmpty();
+  req.checkBody("password", "Please enter a password").notEmpty();
+  req.checkBody("confirmPassword", "Passwords did not match").matches(req.body.password);
+
+  let errors = req.validationErrors();
+
+  if(errors){
+    errorList = [];
+    errors.forEach( (error) => errorList.push(error.msg));
+    res.render("gobl", {errors: errorList});
+  }
+  else{
+  //Check to see if username is taken
+  models.Users.findOne({where: {username: req.body.username}}).then( (user) => {
+    if(user){
+      error = ["Username " + req.body.username + " is already taken."];
+      res.render("gobl", {errors: error});
+    }
+    else{
+      let newUser= {
+        username: req.body.username,
+        password: req.body.password,
+        displayname: req.body.username
+      };
+      models.Users.create(newUser).then( (newUser) => {
+        message = ["Created new user: " + newUser.username];
+        res.render("gobl", {messages: message});
+      });
+    }
+  });
+  }
 });
 
 module.exports = router;
