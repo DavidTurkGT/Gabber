@@ -2,18 +2,27 @@ const express = require('express');
 const router = express.Router();
 const models = require("../models");
 
+//Middleware
+const isLoggedIn = (req,res,next) => {
+  if(!req.session.username){
+    res.redirect("/home");
+  }
+  else{
+    next();
+  }
+}
 
 router.get("/", (req, res) => {
   res.render("gobl");
 });
 
-router.get("/login", (req, res) => {
-  res.send("Login page");
-});
+// router.get("/login", isLoggedIn, (req, res) => {
+//   res.send("Login page");
+// });
+//
+// router.get("/signup", isLoggedIn, (req, res) => res.send("Sign Up page"));
 
-router.get("/signup", (req, res) => res.send("Sign Up page"));
-
-router.get("/:userId/:username", (req, res) => res.send("Main page"));
+router.get("/:userId/:username", isLoggedIn, (req, res) => res.send("Main page"));
 
 router.post("/login", (req, res) => {
   models.Users.findOne({
@@ -27,6 +36,8 @@ router.post("/login", (req, res) => {
     }
     else{
       if (user.password === req.body.password){
+        req.session.username = user.username;
+        req.session.userId = user.id;
         res.redirect("/home/"+user.id+"/"+user.username);
       }
       else{
