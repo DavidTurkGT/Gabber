@@ -16,13 +16,16 @@ router.get("/", (req, res) => {
   res.render("gobl");
 });
 
-// router.get("/login", isLoggedIn, (req, res) => {
-//   res.send("Login page");
-// });
-//
-// router.get("/signup", isLoggedIn, (req, res) => res.send("Sign Up page"));
-
-router.get("/:userId/:username", isLoggedIn, (req, res) => res.send("Main page"));
+router.get("/:userId/:username", isLoggedIn, (req, res) => {
+  models.Users.findById(req.params.userId).then( (user) =>{
+    user = {
+      username: user.username,
+      displayname: user.displayname,
+      id: user.id
+    };
+    res.render("home", {user: user});
+  });
+});
 
 router.post("/login", (req, res) => {
   models.Users.findOne({
@@ -80,6 +83,12 @@ router.post("/signup", (req, res) => {
     }
   });
   }
+});
+
+router.post("/:userId/:username/logout", isLoggedIn, (req, res) => {
+  console.log("Logging out user: ", req.params.username);
+  req.session.destroy();
+  res.redirect("/");
 });
 
 module.exports = router;

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Home: {{#user}}{{displayname}}{{/user}}</title>
+  </head>
+  <body>
+    <h1>Welcome to your home page: {{#user}}{{displayname}}{{/user}}</h1>
+    <h3>Here is your personal info</h3>
+    <ul>
+      <li>Username: {{#user}}{{username}}{{/user}}</li>
+      <li>Display Name: {{#user}}{{displayname}}{{/user}}</li>
+      <li>Id: {{#user}}{{id}}{{/user}}</li>
+      <li>Posts: <ul>
+        {{#posts}}
+        <li>{{.}}</li>
+        {{/posts}}
+      </ul></li>
+    </ul>
+    <form action="/home{{#user}}/{{id}}/{{username}}{{/user}}/logout" method="post">
+      <button type="submit">Log Out</button>
+    </form>
+  </body>
+</html>
