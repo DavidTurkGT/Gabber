@@ -8,7 +8,7 @@
   <body>
     <div class="heading">
       <div class="image">
-        <img src="/img/missing-avatar.png" alt="">
+        <img src="/img/missing-avatar.png" alt="" onClick="gobble()">
       </div>
       <div class="name">
         <h1>{{#user}}{{name}}{{/user}}</h1>
@@ -21,6 +21,11 @@
       <div class="sidebar">
         <h2>My Gobbles</h2>
         <h2>My Likes</h2>
+      </div>
+      <div class="input-form hidden">
+        <form action="/home/{{#user}}{{id}}/{{username}}{{/user}}/post" method="post">
+          <input type="text" name="post" value="" placeholder="What do you want to gobble about?">
+        </form>
       </div>
       <div class="posts">
         {{#posts}}
@@ -46,5 +51,7 @@
         {{/posts}}
       </div>
     </div>
+
+    <script src="/javascript/home.js" charset="utf-8"></script>
   </body>
 </html>

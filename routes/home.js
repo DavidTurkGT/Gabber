@@ -13,8 +13,10 @@ const isLoggedIn = (req,res,next) => {
 }
 
 let User = {
-  name:"David Turk",
-  start: "Jan 1, 1970"
+  displayname:"David Turk",
+  start: "Jan 1, 1970",
+  username: "David",
+  id: 1
 };
 
 let Posts = [
@@ -155,6 +157,26 @@ router.post("/signup", (req, res) => {
   });
   }
 });
+
+router.post("/:userId/:username/post" , (req, res) => {
+  req.checkBody("post","No message to post!").notEmpty();
+
+  let errors = req.validationErrors();
+
+  if(!errors){
+    //Create a new message
+    let newMessage = {
+      body: req.body.post,
+      userId: req.params.userId
+    };
+    models.Messages.create(newMessage).then( (newMessage) => {
+      res.redirect("/home/" + req.params.userId+"/" + req.params.username);
+    })
+  }
+  else{
+    res.redirect("/home/" + req.params.userId+"/" + req.params.username);
+  }
+})
 
 router.post("/:userId/:username/logout", isLoggedIn, (req, res) => {
   req.session.destroy();

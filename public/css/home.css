@@ -15,6 +15,10 @@ body{
   height: 15vh;
 }
 
+.image:hover{
+  cursor: pointer;
+}
+
 .heading img{
   height: 20vh;
   width: auto;
@@ -65,4 +69,26 @@ body{
 
 .buttons {
   text-align: right;
+}
+
+.input-form {
+  border: 2px dotted green;
+  background: transparent;
+  z-index: 2;
+  position: absolute;
+  left: 12.5rem;
+}
+
+.input-form input{
+  padding: 5px;
+}
+
+.input-form input {
+  padding: 13px;
+  width: 60vw;
+  font-size: 1.5em;
+}
+
+.hidden{
+  display: none;
 }
