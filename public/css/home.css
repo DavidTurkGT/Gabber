@@ -1,0 +1,68 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  height: 100vh;
+  width: 100vw;
+}
+
+.heading{
+  background-color: red;
+  display: flex;
+  height: 15vh;
+}
+
+.heading img{
+  height: 20vh;
+  width: auto;
+  border-radius: 100%;
+  position: relative;
+  top: 3rem;
+  left: 0.6rem;
+}
+
+.name {
+  position: relative;
+  top: 2.5rem;
+  left: 6rem;
+}
+
+.startdate {
+  position: relative;
+  top: 5.8rem;
+  left: 32rem;
+}
+
+.body{
+  display: flex;
+  height: 85vh;
+}
+
+.sidebar{
+  background-color: blue;
+  width: 18vw;
+  padding: 6rem 1rem;
+}
+
+.sidebar *{
+  margin: 2rem 0;
+}
+
+.posts{
+  background-color: yellow;
+  width: 82vw;
+  overflow-y: scroll;
+}
+
+.post {
+  background-color: white;
+  margin: 1rem;
+  padding: 0.5rem;
+}
+
+.buttons {
+  text-align: right;
+}
