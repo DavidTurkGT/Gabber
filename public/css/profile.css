@@ -1,0 +1,56 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.heading{
+  background-color: red;
+  height: 15vh;
+  text-align: center;
+  z-index: 1;
+}
+
+.image{
+  display: flex;
+  justify-content: center;
+}
+
+.my-gobbles{
+  background-color: blue;
+  flex: 1 50%;
+  padding-left: 2rem;
+  overflow-y: scroll;
+}
+
+.my-likes{
+  background-color: yellow;
+  flex: 1 50%;
+  padding-left: 6rem;
+  overflow-y: scroll;
+}
+
+.heading img{
+  height: 20vh;
+  width: 20vh;
+  border-radius: 100%;
+  z-index: 2;
+}
+
+.body{
+  display: flex;
+  height: 85vh;
+}
+
+.title {
+    margin-top: 3rem;
+    z-index: 3;
+    position: sticky;
+    top: -10px;
+    background-color: white;
+}
+
+.post{
+  background-color: white;
+  margin: 1rem;
+}

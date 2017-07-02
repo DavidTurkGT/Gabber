@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Profile: {{#user}}{{displayname}}{{/user}}</title>
+    <link rel="stylesheet" href="/css/profile.css">
+  </head>
+  <body>
+    <div class="heading">
+      <div class="name">
+        <h1>{{#user}}{{displayname}}{{/user}}</h1>
+      </div>
+      <div class="startdate">
+        <h3>Gobbling since: {{#user}}{{startdate}}{{/user}}</h3>
+      </div>
+      <div class="image">
+        <img src="/img/missing-avatar.png" alt="">
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="my-gobbles">
+        <div class="title">
+          <h2>My Gobbles</h2>
+        </div>
+
+        <div class="posts">
+          {{#posts}}
+          <div class="post">
+            <div class="author">
+              <p>{{author}}</p>
+            </div>
+            <div class="post">
+              <h5>{{body}}</h5>
+            </div>
+            <div class="buttons">
+              {{#liked}}
+              <button type="button" name="button">Liked!</button>
+              {{/liked}}
+              {{^liked}}
+              <button type="button" name="button">Like</button>
+              {{/liked}}
+              {{#delete}}
+              <button type="button" name="button">Delete</button>
+              {{/delete}}
+            </div>
+          </div>
+          {{/posts}}
+        </div>
+      </div>
+
+      <div class="my-likes">
+        <div class="title">
+          <h2>My Likes</h2>
+        </div>
+
+        <div class="posts">
+          {{#posts}}
+          <div class="post">
+            <div class="author">
+              <p>{{author}}</p>
+            </div>
+            <div class="post">
+              <h5>{{body}}</h5>
+            </div>
+            <div class="buttons">
+              {{#liked}}
+              <button type="button" name="button">Liked!</button>
+              {{/liked}}
+              {{^liked}}
+              <button type="button" name="button">Like</button>
+              {{/liked}}
+              {{#delete}}
+              <button type="button" name="button">Delete</button>
+              {{/delete}}
+            </div>
+          </div>
+          {{/posts}}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

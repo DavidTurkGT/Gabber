@@ -21,11 +21,11 @@ body{
 
 .heading img{
   height: 20vh;
-  width: auto;
+  width: 20vh;
   border-radius: 100%;
   position: relative;
   top: 3rem;
-  left: 0.6rem;
+  left: 3rem;
 }
 
 .name {

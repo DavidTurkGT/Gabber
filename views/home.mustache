@@ -11,7 +11,10 @@
         <img src="/img/missing-avatar.png" alt="" onClick="gobble()">
       </div>
       <div class="name">
-        <h1>{{#user}}{{name}}{{/user}}</h1>
+        <h1><a href="/users/{{#user}}{{id}}/{{username}}{{/user}}">
+          {{#user}}{{displayname}}{{/user}}
+            </a>
+        </h1>
       </div>
       <div class="startdate">
         <h3>Gobbling since: {{#user}}{{start}}{{/user}}</h3>
