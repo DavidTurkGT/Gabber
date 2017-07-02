@@ -10,7 +10,8 @@ const isLoggedIn = (req,res,next) => {
   else{
     next();
   }
-}
+};
+
 const getUser = (req, res, next) => {
   models.Users.findById(parseInt(req.session.userId)).then( (user) => {
     User = {
@@ -70,18 +71,14 @@ const buildPosts = (req, res, next) => {
     message.delete = message.author === User.displayname;
   });
 
-  console.log("Messages received: ", Messages);
   //Reverse so that messages are displayed newest first.
   Posts = Messages.reverse();
   next();
 };
 
-
-
 let User = {};
 
 let Messages = [];
-
 
 let Posts = [];
 

@@ -1,89 +1,89 @@
 const express = require('express');
 const router = express.Router();
+const models = require('../models');
 
-
-let User = {
-  displayname:"David Turk",
-  startdate: "Jan 1, 1970",
-  username: "David",
-  id: 1
+const isLoggedIn = (req,res,next) => {
+  if(!req.session.username){
+    res.redirect("/home");
+  }
+  else{
+    next();
+  }
 };
 
-let Posts = [
-  {
-    author: "David Turk",
-    body: "This is the first post!",
-    liked: true,
-    likedBy: ["Sara", "Cornbread", "Steve Jobs"],
-    delete: true
-  },
-  {
-    author: "Cornbread",
-    body: "Meow.  Meow-meow",
-    liked: false,
-    likedBy: [],
-    delete: false
-  },
-  {
-    author: "David Turk",
-    body: "Why is my cat gobbling?",
-    liked: true,
-    likedBy: ["Sara"],
-    delete: true
-  },
-  {
-    author: "Sara",
-    body: "I have a weird cat...",
-    liked: true,
-    likedBy: ["David Turk"],
-    delete: false
-  },
-  {
-    author: "Steve Jobs",
-    body: "Why didn't I think of this?!",
-    liked: false,
-    likedBy: [],
-    delete: false
-  },
-  {
-    author: "Martha",
-    body: "Where am I?",
-    liked: true,
-    likedBy: ["Cornbread"],
-    delete: false
-  },
-  {
-    author: "David Turk",
-    body: "Total Sue move...",
-    liked: true,
-    likedBy: ["Sara", "Cornbread"],
-    delete: true
-  },
-  {
-    author: "David Turk",
-    body: "Don't like this gobble",
-    liked: false,
-    likedBy: [],
-    delete: true
-  },
-  {
-    author: "Cornbread",
-    body: "Meow",
-    liked: true,
-    likedBy: ["Martha"],
-    delete: false
-  },
-  {
-    author: "Sara",
-    body: "Last Post!",
-    liked: false,
-    likedBy: [],
-    delete: false
-  },
-];
+const getUser = (req, res, next) => {
+  models.Users.findById(parseInt(req.session.userId)).then( (user) => {
+    User = {
+      displayname: user.displayname,
+      startdate: user.createdAt,
+      username: user.username,
+      id: user.id
+    }
+    next();
+  });
+};
 
+const getMessages = (req, res, next) => {
+  models.Messages.findAll({
+    include: [
+      {
+        model: models.Users,
+        as: "user"
+      }
+    ]
+  }).then( (messages) =>{
+    messages.forEach ( (message) => {
+      Messages[ message.dataValues.id - 1 ] = {
+        author: message.user.dataValues.displayname,
+        body: message.dataValues.body,
+        liked: false,
+        likedBy: [],
+        delete: false
+      };
+    })
+    next();
+  });
+};
 
-router.get("/:userId/:username", (req, res) => {
+const getLikes = (req, res, next) => {
+  models.Likes.findAll({
+    include: [
+      {
+        model: models.Users,
+        as: "user"
+      }
+    ]
+  }).then( (likes) =>{
+    likes.forEach( (like) => {
+      let liker = like.user.dataValues.displayname;
+      Messages[ like.messageId - 1 ].likedBy.push(liker);
+    })
+    next();
+  });
+};
+
+const buildPosts = (req, res, next) => {
+  Messages.forEach( (message) => {
+    //Decide if a message should be able to be liked (have you liked it already?)
+    message.liked = message.likedBy.indexOf(User.displayname) !== -1;
+    //Decide if a message should be deleteable (are you the author?)
+    message.delete = message.author === User.displayname;
+  });
+
+  //Reverse so that messages are displayed newest first.
+  Posts = Messages.reverse();
+  next();
+};
+
+let User = {};
+
+let Messages = [];
+
+let Posts = [];
+
+router.get("/:userId/:username",
+isLoggedIn, getUser, getMessages, getLikes, buildPosts,
+(req, res) => {
   res.render("profile", {user: User, posts: Posts});
 });
 
