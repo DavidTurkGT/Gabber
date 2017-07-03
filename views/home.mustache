@@ -39,15 +39,22 @@
           <div class="post">
             <h5>{{body}}</h5>
           </div>
+          {{#isLiked}}
+          <div class="likes">
+            <p>Liked by:
+              {{#likedBy}}<span>{{.}}, </span>{{/likedBy}}
+            </p>
+          </div>
+          {{/isLiked}}
           <div class="buttons">
-            {{#liked}}
+            {{^canLike}}
             <button type="button">Liked!</button>
-            {{/liked}}
-            {{^liked}}
+            {{/canLike}}
+            {{#canLike}}
             <form action="/posts/home/{{id}}/like" method="post">
               <button type="submit">Like</button>
             </form>
-            {{/liked}}
+            {{/canLike}}
             {{#delete}}
             <form action="/posts/home/{{id}}/delete" method="post">
               <button type="submit">Delete</button>

@@ -40,7 +40,8 @@ const getMessages = (req, res, next) => {
         id: message.dataValues.id,
         author: message.user.dataValues.displayname,
         body: message.dataValues.body,
-        liked: false,
+        isLiked: false,
+        canLike: true,
         likedBy: [],
         delete: false
       };
@@ -61,7 +62,7 @@ const getLikes = (req, res, next) => {
     likes.forEach( (like) => {
       let liker = like.user.dataValues.displayname;
       Messages[ like.messageId - 1 ].likedBy.push(liker);
-    })
+    });
     next();
   });
 };
@@ -70,8 +71,10 @@ const buildPosts = (req, res, next) => {
   Posts = [];
   Messages.forEach( (message) => {
     if(message){
+      //Decide if a message is liked
+      message.isLiked = message.likedBy.length > 0;
       //Decide if a message should be able to be liked (have you liked it already?)
-      message.liked = message.likedBy.indexOf(User.displayname) !== -1;
+      message.canLike = message.likedBy.indexOf(User.displayname) === -1;
       //Decide if a message should be deleteable (are you the author?)
       message.delete = message.author === User.displayname;
       Posts.push(message);
