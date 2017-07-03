@@ -28,7 +28,7 @@ app.use(session({
   saveUninitialized: false
 }));
 
-pg.defaults.ssl = false;
+pg.defaults.ssl = true;
 pg.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
   console.log('Connected to postgres! Getting schemas...');
