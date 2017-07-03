@@ -16,6 +16,7 @@
   "production": {
     "username": "turk",
     "password": null,
+    "use_env_variable": "DATABASE_URL",
     "database": "DATABASE_URL",
     "host": "127.0.0.1",
     "dialect": "postgres"
