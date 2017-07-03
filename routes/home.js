@@ -14,7 +14,7 @@ const isLoggedIn = (req,res,next) => {
 
 const getUser = (req, res, next) => {
   User = {};
-  models.Users.findById(parseInt(req.session.userId)).then( (user) => {
+  models.Users.findById(parseInt(req.params.userId)).then( (user) => {
     User = {
       displayname: user.displayname,
       startdate: user.createdAt,
@@ -39,6 +39,8 @@ const getMessages = (req, res, next) => {
       Messages[ message.dataValues.id - 1 ] = {
         id: message.dataValues.id,
         author: message.user.dataValues.displayname,
+        authorId: message.user.dataValues.id,
+        authorUsername: message.user.dataValues.username,
         body: message.dataValues.body,
         isLiked: false,
         canLike: true,
