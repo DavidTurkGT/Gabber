@@ -14,4 +14,10 @@
 
 .nav_bar h5{
   align-self: flex-start;
+  font-family: 'Lobster', cursive;
+  font-size: 1.6em;
+}
+
+.nav_bar a{
+  font-family: 'Abril Fatface', cursive;
 }

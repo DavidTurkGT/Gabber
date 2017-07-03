@@ -2,6 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Josefin Slab', serif;
 }
 
 body{
@@ -154,4 +155,8 @@ a:visited{
 
 a:hover{
   text-decoration: underline;
+}
+
+.sidebar h2{
+  font-family: 'Abril Fatface', cursive;
 }
