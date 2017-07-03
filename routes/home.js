@@ -145,12 +145,13 @@ router.post("/login", (req, res) => {
 router.post("/createuser", (req, res) => {
   Messages = [];
   errorMessages = [];
+  console.log("Request body received: ", req.body);
   console.log("Creating a new user!");
-  req.checkBody("first-name", "Please enter a first name").notEmpty();
-  req.checkBody("last-name", "Please enter a last name").notEmpty();
+  req.checkBody("firstName", "Please enter a first name").notEmpty();
+  req.checkBody("lastName", "Please enter a last name").notEmpty();
   req.checkBody("username", "Please enter a username").notEmpty();
   req.checkBody("password", "Please enter a password").notEmpty();
-  req.checkBody("password", "Passwords do not match").matches(req.body.confirmPassword);
+  req.checkBody("confirmPassword", "Passwords did not match").matches(req.body.password);
 
   let errors = req.validationErrors();
 
@@ -160,11 +161,31 @@ router.post("/createuser", (req, res) => {
     res.render("signup", {errors: errorMessages})
   }
   else{
-    let message = "Created new user!";
-    Messages.push(message);
-    res.render("gobl", {messages: Messages, errors: errorMessages});
+    models.Users.findOne({
+      where: {
+        username: req.body.username
+      }
+    }).then( (user) => {
+      console.log("User found: ", user);
+      if(user){
+        errorMessages.push("Username already taken");
+        res.render("signup", {errors: errorMessages})
+      }
+      else{
+        console.log("New user!");
+        let newUser = {
+          username: req.body.username,
+          password: req.body.password,
+          displayname: req.body.firstName + " " + req.body.lastName
+        };
+        models.Users.create(newUser).then( ((newUser) => {
+          Messages.push("Created user!");
+          res.render("gobl", {messages: Messages})
+        }))
+      }
+    })
   }
-  
+
 });
 
 router.post("/:userId/:username/post", isLoggedIn, (req, res) => {
