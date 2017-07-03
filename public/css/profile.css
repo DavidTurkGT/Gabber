@@ -2,13 +2,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Josefin Slab', serif;
 }
 
 .heading{
-  background-color: red;
-  height: 15vh;
+  background-color: #734B5E;
+  height: 18vh;
   text-align: center;
-  z-index: 1;
+  padding: 1rem;
 }
 
 .image{
@@ -17,14 +18,14 @@
 }
 
 .my-gobbles{
-  background-color: blue;
+  background-color: #FCDEBE;
   flex: 1 50%;
   padding-left: 2rem;
   overflow-y: scroll;
 }
 
 .my-likes{
-  background-color: yellow;
+  background-color: #FCDEBE;
   flex: 1 50%;
   padding-left: 6rem;
   overflow-y: scroll;
@@ -39,18 +40,86 @@
 
 .body{
   display: flex;
-  height: 85vh;
+  height: 74vh;
 }
 
 .title {
-    margin-top: 3rem;
-    z-index: 3;
+    margin-top: 2rem;
     position: sticky;
-    top: -10px;
-    background-color: white;
+    top: 0;
+    background-color: #FCDEBE;
 }
 
-.post{
-  background-color: white;
+.post {
+  background-color: #EDEBD7;
   margin: 1rem;
+  padding: 0.5rem;
+  box-shadow: 2px 1px 3px #555;
+}
+
+.buttons {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttons > * {
+  margin-right: 1rem;
+}
+
+.author p {
+  text-decoration: underline;
+  margin-bottom: 1rem;
+}
+
+.post_body {
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  padding: 7px;
+  border: none;
+  background-color: #587D71;
+  color: wheat;
+  font-size: 0.8em;
+  box-shadow: 1px 2px 3px #555;
+}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+  outline: none;
+}
+
+button:focus{
+  outline: none;
+}
+
+
+button:hover {background-color: #45635A}
+
+.likes {
+  font-size: 0.8em;
+  position: relative;
+  top: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited{
+  color: black;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+.title h2{
+  font-family: 'Abril Fatface', cursive;
 }
