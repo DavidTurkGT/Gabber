@@ -114,6 +114,10 @@ router.get("/:userId/:username",
   res.render("home", {user: User, posts: Posts, errors: errorMessages});
 });
 
+router.post("/signup", (req, res) => {
+  res.render("signup");
+})
+
 router.post("/login", (req, res) => {
   models.Users.findOne({
     where: {
@@ -138,41 +142,32 @@ router.post("/login", (req, res) => {
   })
 });
 
-router.post("/signup", (req, res) => {
+router.post("/createuser", (req, res) => {
+  Messages = [];
+  errorMessages = [];
+  console.log("Creating a new user!");
+  req.checkBody("first-name", "Please enter a first name").notEmpty();
+  req.checkBody("last-name", "Please enter a last name").notEmpty();
   req.checkBody("username", "Please enter a username").notEmpty();
   req.checkBody("password", "Please enter a password").notEmpty();
-  req.checkBody("confirmPassword", "Passwords did not match").matches(req.body.password);
+  req.checkBody("password", "Passwords do not match").matches(req.body.confirmPassword);
 
   let errors = req.validationErrors();
 
   if(errors){
-    errorList = [];
-    errors.forEach( (error) => errorList.push(error.msg));
-    res.render("gobl", {errors: errorList});
+    errors.forEach( (error) => errorMessages.push(error.msg))
+
+    res.render("signup", {errors: errorMessages})
   }
   else{
-  //Check to see if username is taken
-  models.Users.findOne({where: {username: req.body.username}}).then( (user) => {
-    if(user){
-      error = ["Username " + req.body.username + " is already taken."];
-      res.render("gobl", {errors: error});
-    }
-    else{
-      let newUser= {
-        username: req.body.username,
-        password: req.body.password,
-        displayname: req.body.username
-      };
-      models.Users.create(newUser).then( (newUser) => {
-        message = ["Created new user: " + newUser.username];
-        res.render("gobl", {messages: message});
-      });
-    }
-  });
+    let message = "Created new user!";
+    Messages.push(message);
+    res.render("gobl", {messages: Messages, errors: errorMessages});
   }
+  
 });
 
-router.post("/:userId/:username/post" , (req, res) => {
+router.post("/:userId/:username/post", isLoggedIn, (req, res) => {
   let errors;
   errorMessages = [];
 

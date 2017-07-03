@@ -88,3 +88,33 @@ a:hover{
     flex: 1 100%;
     margin-top: 1rem;
 }
+
+.signup {
+  flex: 1 100%;
+  margin: 2rem;
+  padding: 1rem;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  margin: auto;
+}
+
+.signup-form > * {
+  margin: 0.5rem;
+}
+
+input{
+  padding: 8px;
+}
+
+.messages, .errors {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+ul {
+  list-style: none;
+}
