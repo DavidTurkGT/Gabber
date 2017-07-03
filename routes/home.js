@@ -177,7 +177,7 @@ router.post("/:userId/:username/post" , (req, res) => {
   }
 })
 
-router.post("/:userId/:username/logout", isLoggedIn, (req, res) => {
+router.post("/logout", isLoggedIn, (req, res) => {
   req.session.destroy();
   res.redirect("/");
 });
