@@ -9,6 +9,7 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem;
+  height: 8vh;
 }
 
 .nav_bar h5{

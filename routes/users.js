@@ -17,10 +17,11 @@ const getUser = (req, res, next) => {
   models.Users.findById(parseInt(req.params.userId)).then( (user) => {
     User = {
       displayname: user.displayname,
-      startdate: user.createdAt,
+      startdate: new Date(user.createdAt),
       username: user.username,
       id: user.id
     }
+    User.startdate = getStartDate(User.startdate);
     next();
   });
 };
@@ -114,6 +115,13 @@ let Messages = [];
 let userPosts = [];
 
 let userLikes = [];
+
+function getStartDate(date) {
+  let month = date.getMonth();
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',' September','October','Novemeber','December'];
+  return months[month] + ", " + date.getFullYear();
+
+}
 
 router.get("/:userId/:username",
 isLoggedIn, getUser, getMessages, getLikes, buildUserPosts, buildUserLikes,
