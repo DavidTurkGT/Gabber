@@ -37,8 +37,10 @@ body{
 
 .startdate {
   position: relative;
-  top: 5.8rem;
-  left: 40rem;
+  top: 3rem;
+  text-align: right;
+  width: 70vw;
+  margin: auto;
 }
 
 .body{
