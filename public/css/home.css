@@ -10,7 +10,7 @@ body{
 }
 
 .heading{
-  background-color: red;
+  background-color: #734B5E;
   display: flex;
   height: 15vh;
 }
@@ -46,7 +46,7 @@ body{
 }
 
 .sidebar{
-  background-color: blue;
+  background-color: #D4D2A5;
   width: 18vw;
   padding: 6rem 1rem;
 }
@@ -56,15 +56,16 @@ body{
 }
 
 .posts{
-  background-color: yellow;
+  background-color: #FCDEBE;
   width: 82vw;
   overflow-y: scroll;
 }
 
 .post {
-  background-color: white;
+  background-color: #EDEBD7;
   margin: 1rem;
   padding: 0.5rem;
+  box-shadow: 2px 1px 3px #555;
 }
 
 .buttons {

@@ -5,6 +5,7 @@
 }
 
 .nav_bar{
+  background-color: #E3B23C;
   display: flex;
   justify-content: space-between;
   padding: 1rem;
