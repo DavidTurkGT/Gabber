@@ -39,7 +39,9 @@
         {{#posts}}
         <div class="post">
           <div class="author">
-            <p>{{author}}</p>
+            <p><a href="/users/{{#user}}{{id}}/{{username}}{{/user}}">
+              {{#user}}{{author}}{{/user}}
+                </a></p>
           </div>
           <div class="post_body">
             <h5>{{body}}</h5>
@@ -53,16 +55,16 @@
           {{/isLiked}}
           <div class="buttons">
             {{^canLike}}
-            <button type="button">Liked!</button>
+            <button class="liked_button" type="button">Liked!</button>
             {{/canLike}}
             {{#canLike}}
             <form action="/posts/home/{{id}}/like" method="post">
-              <button type="submit">Like</button>
+              <button class="like_button" type="submit">Like</button>
             </form>
             {{/canLike}}
             {{#delete}}
             <form action="/posts/home/{{id}}/delete" method="post">
-              <button type="submit">Delete</button>
+              <button class="delete_button" type="submit">Delete</button>
             </form>
             {{/delete}}
           </div>

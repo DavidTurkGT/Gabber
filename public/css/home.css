@@ -70,6 +70,12 @@ body{
 
 .buttons {
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttons > * {
+  margin-right: 1rem;
 }
 
 .input-form {
@@ -92,4 +98,59 @@ body{
 
 .hidden{
   display: none;
+}
+
+.author {
+  font-size: 1.5em;
+}
+
+.author p {
+  text-decoration: underline;
+  margin-bottom: 1rem;
+}
+
+.post_body {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+button {
+  padding: 7px;
+  border: none;
+  background-color: #587D71;
+  color: wheat;
+  font-size: 0.8em;
+  box-shadow: 1px 2px 3px #555;
+}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+  outline: none;
+}
+
+button:focus{
+  outline: none;
+}
+
+
+button:hover {background-color: #45635A}
+
+.likes {
+  font-size: 0.8em;
+  position: relative;
+  top: 2rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited{
+  color: black;
+}
+
+a:hover{
+  text-decoration: underline;
 }
