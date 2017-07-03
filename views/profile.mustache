@@ -33,17 +33,24 @@
             <div class="post">
               <h5>{{body}}</h5>
             </div>
+            {{#isLiked}}
+            <div class="likes">
+              <p>Liked by:
+                {{#likedBy}}<span>{{.}}, </span>{{/likedBy}}
+              </p>
+            </div>
+            {{/isLiked}}
             <div class="buttons">
-              {{#liked}}
-              <button type="button" name="button">Liked!</button>
-              {{/liked}}
-              {{^liked}}
-              <form action="/posts/users/{{id}}/like" method="post">
+              {{^canLike}}
+              <button type="button">Liked!</button>
+              {{/canLike}}
+              {{#canLike}}
+              <form action="/posts/home/{{id}}/like" method="post">
                 <button type="submit">Like</button>
               </form>
-              {{/liked}}
+              {{/canLike}}
               {{#delete}}
-              <form action="/posts/users/{{id}}/delete" method="post">
+              <form action="/posts/home/{{id}}/delete" method="post">
                 <button type="submit">Delete</button>
               </form>
               {{/delete}}
@@ -59,7 +66,7 @@
         </div>
 
         <div class="posts">
-          {{#posts}}
+          {{#likes}}
           <div class="post">
             <div class="author">
               <p>{{author}}</p>
@@ -67,19 +74,30 @@
             <div class="post">
               <h5>{{body}}</h5>
             </div>
+            {{#isLiked}}
+            <div class="likes">
+              <p>Liked by:
+                {{#likedBy}}<span>{{.}}, </span>{{/likedBy}}
+              </p>
+            </div>
+            {{/isLiked}}
             <div class="buttons">
-              {{#liked}}
-              <button type="button" name="button">Liked!</button>
-              {{/liked}}
-              {{^liked}}
-              <button type="button" name="button">Like</button>
-              {{/liked}}
+              {{^canLike}}
+              <button type="button">Liked!</button>
+              {{/canLike}}
+              {{#canLike}}
+              <form action="/posts/home/{{id}}/like" method="post">
+                <button type="submit">Like</button>
+              </form>
+              {{/canLike}}
               {{#delete}}
-              <button type="button" name="button">Delete</button>
+              <form action="/posts/home/{{id}}/delete" method="post">
+                <button type="submit">Delete</button>
+              </form>
               {{/delete}}
             </div>
           </div>
-          {{/posts}}
+          {{/likes}}
         </div>
       </div>
     </div>
