@@ -1,14 +1,35 @@
 const express = require('express');
 const router = express.Router();
+const models = require("../models");
 
-router.post("/:messageId/like", (req, res) => {
-  console.log("Liking the message: " + req.params.messageId);
-  res.redirect("/home/username/userId");
+router.post("/:return/:messageId/:action", (req, res) => {
+  switch (req.params.action) {
+    case "like":
+      console.log("Liking a message");
+      let newLike = {
+        userId: req.session.userId,
+        messageId: parseInt(req.params.messageId)
+      };
+      console.log("New like created: ", newLike);
+      models.Likes.create(newLike).then();
+      break;
+    case "delete":
+      console.log("Deleting a message");
+      models.Likes.destroy({
+        where: {
+          messageId: parseInt(req.params.messageId)
+        }
+      }).then( () => {
+        models.Messages.destroy({
+          where: {
+            id: parseInt(req.params.messageId)
+          }
+        })
+      })
+      break;
+  }
+  res.redirect("/"+req.params.return+"/"+req.session.userId+"/"+req.session.username);
 });
 
-router.post("/:messageId/delete", (req, res) => {
-  console.log("Deleting the message: " + req.params.messageId);
-  res.redirect("/home/username/userId");
-});
 
 module.exports = router;

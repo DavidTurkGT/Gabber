@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models');
 
+//Middleware
 const isLoggedIn = (req,res,next) => {
   if(!req.session.username){
     res.redirect("/home");
@@ -12,6 +13,7 @@ const isLoggedIn = (req,res,next) => {
 };
 
 const getUser = (req, res, next) => {
+  User = {};
   models.Users.findById(parseInt(req.session.userId)).then( (user) => {
     User = {
       displayname: user.displayname,
@@ -24,6 +26,7 @@ const getUser = (req, res, next) => {
 };
 
 const getMessages = (req, res, next) => {
+  Messages = [];
   models.Messages.findAll({
     include: [
       {
@@ -34,6 +37,7 @@ const getMessages = (req, res, next) => {
   }).then( (messages) =>{
     messages.forEach ( (message) => {
       Messages[ message.dataValues.id - 1 ] = {
+        id: message.dataValues.id,
         author: message.user.dataValues.displayname,
         body: message.dataValues.body,
         liked: false,
@@ -63,15 +67,19 @@ const getLikes = (req, res, next) => {
 };
 
 const buildPosts = (req, res, next) => {
+  Posts = [];
   Messages.forEach( (message) => {
-    //Decide if a message should be able to be liked (have you liked it already?)
-    message.liked = message.likedBy.indexOf(User.displayname) !== -1;
-    //Decide if a message should be deleteable (are you the author?)
-    message.delete = message.author === User.displayname;
+    if(message){
+      //Decide if a message should be able to be liked (have you liked it already?)
+      message.liked = message.likedBy.indexOf(User.displayname) !== -1;
+      //Decide if a message should be deleteable (are you the author?)
+      message.delete = message.author === User.displayname;
+      Posts.push(message);
+    }
   });
 
   //Reverse so that messages are displayed newest first.
-  Posts = Messages.reverse();
+  Posts = Posts.reverse();
   next();
 };
 

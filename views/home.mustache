@@ -41,13 +41,17 @@
           </div>
           <div class="buttons">
             {{#liked}}
-            <button type="button" name="button">Liked!</button>
+            <button type="button">Liked!</button>
             {{/liked}}
             {{^liked}}
-            <button type="button" name="button">Like</button>
+            <form action="/posts/home/{{id}}/like" method="post">
+              <button type="submit">Like</button>
+            </form>
             {{/liked}}
             {{#delete}}
-            <button type="button" name="button">Delete</button>
+            <form action="/posts/home/{{id}}/delete" method="post">
+              <button type="submit">Delete</button>
+            </form>
             {{/delete}}
           </div>
         </div>
