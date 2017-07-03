@@ -79,7 +79,7 @@ const buildUserPosts = (req, res, next) => {
       //Decide if a message should be able to be liked (have you liked it already?)
       message.canLike = message.likedBy.indexOf(User.displayname) === -1;
       //Decide if a message should be deleteable (are you the author?)
-      message.delete = message.author === User.displayname;
+      message.delete = message.author === req.session.displayname;
       userPosts.push(message);
     }
   });

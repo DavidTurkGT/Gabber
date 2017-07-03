@@ -132,6 +132,7 @@ router.post("/login", (req, res) => {
       if (user.password === req.body.password){
         req.session.username = user.username;
         req.session.userId = user.id;
+        req.session.displayname = user.displayname;
         res.redirect("/home/"+user.id+"/"+user.username);
       }
       else{
