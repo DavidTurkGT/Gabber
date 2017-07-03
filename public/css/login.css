@@ -1,0 +1,90 @@
+body{
+  background-color: #FCDEBE;
+}
+
+.heading {
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  font-size: 3em;
+  text-shadow: 6px 4px #DDD;
+}
+
+.container{
+  background-color: #EDEBD7;
+  width: 70vw;
+  margin: auto;
+  margin-top: 5rem;
+  box-shadow: 3px 4px 3px #555;
+}
+
+button {
+  padding: 7px;
+  border: none;
+  background-color: #587D71;
+  color: wheat;
+  font-size: 0.8em;
+  box-shadow: 1px 2px 3px #555;
+}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+  outline: none;
+}
+
+button:focus{
+  outline: none;
+}
+
+button:hover {background-color: #45635A}
+
+.likes {
+  font-size: 0.8em;
+  position: relative;
+  top: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited{
+  color: black;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+.body{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.login form{
+  border: 1px dotted #555;
+  padding: 1rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.login legend{
+  text-align: center;
+  flex: 1 100%;
+}
+
+.login input {
+  flex: 1 50%;
+  padding: 8px;
+  margin-top: 1rem;
+}
+
+.login button {
+    flex: 1 100%;
+    margin-top: 1rem;
+}
