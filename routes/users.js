@@ -28,6 +28,9 @@ const getUser = (req, res, next) => {
 const getMessages = (req, res, next) => {
   Messages = [];
   models.Messages.findAll({
+    where: {
+      userId: User.id
+    },
     include: [
       {
         model: models.Users,
@@ -61,7 +64,9 @@ const getLikes = (req, res, next) => {
   }).then( (likes) =>{
     likes.forEach( (like) => {
       let liker = like.user.dataValues.displayname;
-      Messages[ like.messageId - 1 ].likedBy.push(liker);
+      if(Messages[ like.messageId - 1 ]){
+        Messages[ like.messageId - 1 ].likedBy.push(liker);
+      }
     });
     next();
   });
