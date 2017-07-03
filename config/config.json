@@ -2,21 +2,21 @@
   "development": {
     "username": "turk",
     "password": null,
-    "database": "postgresql-deep-66839",
+    "database": "gabber",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "turk",
     "password": null,
-    "database": "postgresql-deep-66839",
+    "database": "gabber",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "turk",
     "password": null,
-    "database": "postgresql-deep-66839",
+    "database": "gabber",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
