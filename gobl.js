@@ -29,6 +29,8 @@ app.use(session({
 
 app.use(router);
 
-app.listen(3000, function(){
-  console.log("App running on localhost:3000")
+app.set('port', (process.env.PORT || 3000));
+
+app.listen(app.get('port'), function(){
+  console.log("App running on " + app.get('port'));
 });
