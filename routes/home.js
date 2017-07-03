@@ -92,6 +92,8 @@ let Messages = [];
 
 let Posts = [];
 
+let errorMessages = [];
+
 router.get("/", (req, res) => {
   res.render("gobl");
 });
@@ -99,7 +101,7 @@ router.get("/", (req, res) => {
 router.get("/:userId/:username",
   isLoggedIn, getUser, getMessages, getLikes, buildPosts,
   (req, res) => {
-  res.render("home", {user: User, posts: Posts});
+  res.render("home", {user: User, posts: Posts, errors: errorMessages});
 });
 
 router.post("/login", (req, res) => {
@@ -161,10 +163,18 @@ router.post("/signup", (req, res) => {
 });
 
 router.post("/:userId/:username/post" , (req, res) => {
+  let errors;
+  errorMessages = [];
+
   req.checkBody("post","No message to post!").notEmpty();
 
-  let errors = req.validationErrors();
+  errors = req.validationErrors();
 
+  if(req.body.post.length > 140){
+    console.log("ERROR! Too long of a post!");
+    errors = "Your post must be no more than 140 characters";
+    errorMessages.push(errors);
+  }
   if(!errors){
     //Create a new message
     let newMessage = {
@@ -173,12 +183,13 @@ router.post("/:userId/:username/post" , (req, res) => {
     };
     models.Messages.create(newMessage).then( (newMessage) => {
       res.redirect("/home/" + req.params.userId+"/" + req.params.username);
-    })
+    });
   }
   else{
-    res.redirect("/home/" + req.params.userId+"/" + req.params.username);
+    //There is a concious choice that no error message should display for an empty post, just a re-rendering of the page
+    res.redirect("/home/" + req.params.userId+"/" + req.params.username);s
   }
-})
+});
 
 router.post("/logout", isLoggedIn, (req, res) => {
   req.session.destroy();

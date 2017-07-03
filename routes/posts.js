@@ -5,16 +5,13 @@ const models = require("../models");
 router.post("/:return/:messageId/:action", (req, res) => {
   switch (req.params.action) {
     case "like":
-      console.log("Liking a message");
       let newLike = {
         userId: req.session.userId,
         messageId: parseInt(req.params.messageId)
       };
-      console.log("New like created: ", newLike);
       models.Likes.create(newLike).then();
       break;
     case "delete":
-      console.log("Deleting a message");
       models.Likes.destroy({
         where: {
           messageId: parseInt(req.params.messageId)
